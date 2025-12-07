@@ -1,24 +1,32 @@
-// src/server.js
 const express = require("express");
 const cors = require("cors");
 const { envz } = require("./config/envz");
 const { usersRoute } = require("./routes/user.routes");
-const { chatsRoute } = require("./routes/chat.routes");
-const { msgsRoute } = require("./routes/message.routes");
+const { chatsRt, chatsRoute } = require("./routes/chat.routes");
+const { msgsRt, msgsRoute } = require("./routes/message.routes");
+const { authRt } = require("./routes/auth.routes");
+const { jwtGuard } = require("./middleware/jwt.middleware");
 
-const kApp = express();
+const appSrv = express();
 
-kApp.use(cors());
-kApp.use(express.json());
+appSrv.use(cors());
+appSrv.use(express.json());
 
-kApp.get("/health", (req, res) => {
-  res.json({ ok: true, srv: "notfly-backend", env: process.env.NODE_ENV || "dev" });
+appSrv.get("/health", (req, res) => {
+  res.json({
+    ok: true,
+    srv: "notfly-backend",
+    env: process.env.NODE_ENV || "dev",
+  });
 });
 
-kApp.use("/users", usersRoute);
-kApp.use("/chats", chatsRoute);
-kApp.use("/messages", msgsRoute);
+appSrv.use("/auth", authRt);
 
-kApp.listen(envz.PORT, () => {
-  console.log(`🚀 NotFly backend on porta ${envz.PORT}`);
+appSrv.use("/users", jwtGuard, usersRoute);
+appSrv.use("/chats", jwtGuard, chatsRoute);
+appSrv.use("/messages", jwtGuard, msgsRoute);
+
+const p0rt = envz.PORT || 4000;
+appSrv.listen(p0rt, () => {
+  console.log(`🚀 NotFly backend ouv1ndo na porta ${p0rt}`);
 });
