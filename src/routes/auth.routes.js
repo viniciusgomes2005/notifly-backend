@@ -1,9 +1,9 @@
 const express = require("express");
 const { authService } = require("../services/auth.service");
 
-const authRt = express.Router();
+const authRoute = express.Router();
 
-authRt.post("/signup", async (req, res) => {
+authRoute.post("/signup", async (req, res) => {
   try {
     const { name, email, password, photo_url } = req.body;
 
@@ -22,7 +22,7 @@ authRt.post("/signup", async (req, res) => {
 
     return res.status(201).json({ ok: true, ...result });
   } catch (err) {
-    console.error("[authRt.signup]", err);
+    console.error("[authRoute.signup]", err);
 
     if (err.code === "email_already_in_use") {
       return res.status(409).json({ ok: false, error: err.code });
@@ -32,7 +32,7 @@ authRt.post("/signup", async (req, res) => {
   }
 });
 
-authRt.post("/login", async (req, res) => {
+authRoute.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -45,7 +45,7 @@ authRt.post("/login", async (req, res) => {
     const result = await authService.login({ email, password });
     return res.json({ ok: true, ...result });
   } catch (err) {
-    console.error("[authRt.login]", err);
+    console.error("[authRoute.login]", err);
 
     if (err.code === "invalid_credentials") {
       return res
@@ -57,4 +57,4 @@ authRt.post("/login", async (req, res) => {
   }
 });
 
-module.exports = { authRt };
+module.exports = { authRoute };
