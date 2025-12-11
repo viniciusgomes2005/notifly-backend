@@ -1,0 +1,19 @@
+{
+  "servers": {
+    "notifly": {
+      "command": "node",
+      "args": [
+        "C:\\dev\\NotiFly\\notifly-backend\\src\\mcp_server.mjs"
+      ],
+      "env": {
+        "NODE_ENV": "development",
+        "SUPABASE_URL": "https://pntensihtipgklmdkrtw.supabase.co",
+        "SUPABASE_SERVICE_ROLE": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBudGVuc2lodGlwZ2tsbWRrcnR3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2NTA1NjI4NiwiZXhwIjoyMDgwNjMyMjg2fQ.cnis-4fPrhkUPyqfLp8b6n1X5KUy5--jHOV96gHqkKk",
+        "PORT": "4000",
+        "SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBudGVuc2lodGlwZ2tsbWRrcnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUwNTYyODYsImV4cCI6MjA4MDYzMjI4Nn0.2p2ku_PoTOXZhd1yoIlxC0MrsUqSuXziVexiQykAbUY",
+        "JWT_SECRET": "everyargumenteverywordwecantakebackthenonlyforaminuteiwanttochangemymindiwantraisespiritsknowthatmeansillhavetoleaveeveryargumenteverywordwecantakebackthenonlyforaminuteiwanttochangemymindiwantraisespiritsknowthatmeansillhavetoleaveeveryargumenteverywordwecantakebackthenonlyforaminuteiwanttochangemymindiwantraisespiritsknowthatmeansillhavetoleave",
+        "JWT_EXPIRES_IN": "7d"
+      }
+    }
+  }
+}
