@@ -17,7 +17,6 @@ msgsRoute.get("/chat/:chat_id", async (req, res) => {
   }
 });
 
-// criar mensagem
 msgsRoute.post("/", async (req, res) => {
   try {
     const payload = req.body;

@@ -4,6 +4,10 @@ import { z } from "zod";
 import { tasksService } from "./services/task.service.js";
 
 
+console.error("[MCP-NotiFly] Booting MCP server…");
+console.error("[MCP-NotiFly] NODE_ENV =", process.env.NODE_ENV);
+console.error("[MCP-NotiFly] SUPABASE_URL =", process.env.SUPABASE_URL);
+
 const server = new McpServer({
     name: "NotiFly MCP Server",
     version: "1.0.0",
@@ -24,8 +28,10 @@ server.registerTool(
         },
     },
     async (args) => {
+        console.error("MCP tool 'add' called with args:", args);
         try {
             const task = await tasksService.createTask(args);
+            console.error("Task created via MCP tool 'add':", task?.task_id);
             return {
                 content: [
                     {
@@ -60,6 +66,7 @@ server.registerTool(
         },
     },
     async (args) => {
+        console.error("MCP tool 'listDay' called with args:", args);
         const tasks = await tasksService.listTasksForDay(args.owner_id, args.date);
         return {
             content: tasks.length
@@ -173,6 +180,7 @@ Available tools (MCP):
 
 Behavior guidelines:
 - If the user says things like "joga isso pra amanhã", interpret dates relative to "today" if provided.
+- If the user passes a datetime like 21h or 3pm, convert it to 24-hour format.
 - Prefer to look at the user's tasks (via listDay or listRange) before making big changes.
 - If the request is too ambiguous (for example, you don't know which task they mean), ask 1–2 clarification questions instead of guessing wildly.
 - Always explain briefly what you did (e.g. which tasks were moved or completed).
@@ -202,3 +210,5 @@ Now the user sent this request (possibly vague), and you must understand what th
 const transport = new StdioServerTransport();
 
 await server.connect(transport);
+
+console.error("[MCP-NotiFly] Server connected via stdio");

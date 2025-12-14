@@ -1,7 +1,14 @@
 const { client } = require("../database/client");
 
 const chatsService = {
-  async createChat(user_1_id, user_2_id, is_system = false) {
+  async createChat(user_1_id, user_2_email, is_system = false) {
+    const user_2_id  = await client
+    .from("users")
+    .select("user_id")
+    .eq("email", user_2_email)
+    .maybeSingle()
+    .then(({ data }) => data.user_id);
+    console.log(user_2_id);
     const { data, error } = await client
       .from("chats")
       .insert({

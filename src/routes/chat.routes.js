@@ -15,9 +15,11 @@ chatsRoute.get("/user/:user_id", async (req, res) => {
 });
 
 chatsRoute.post("/", async (req, res) => {
+  console.log("[chatsRoute.create]", req.body);
   try {
-    const { user_1_id, user_2_id, is_system } = req.body;
-    const chat = await chatsService.createChat(user_1_id, user_2_id, is_system);
+    const { user_1_id, user_2_email, is_system } = req.body;
+    console.log("[chatsRoute.create]", user_1_id, user_2_email, is_system);
+    const chat = await chatsService.createChat(user_1_id, user_2_email, is_system);
     return res.status(201).json({ ok: true, chat });
   } catch (err) {
     console.error("[chatsRoute.create]", err);
